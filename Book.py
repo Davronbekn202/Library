@@ -1,84 +1,91 @@
-from abc import abstractmethod, ABC
+from read import Library,Catalog
+from read import Books,AudioBook,VideoBook,Magazine
 
+def get_start():
+    hey = Catalog("new")
+    hey.add_books(Books("shadow", 110, 4, 3, 30))
+    info = [["ali"],[],[],[]]
+    print("""1 - User
+2 - Admin""")
+    chack = int(input("Choose the number: "))
+    while True:
+        if chack == 1:
+            print("""0 - exit
+1 - Books
+2 - AudioBooks
+3 - VideoBooks
+4 - Magazine""")
+            ask = int(input("Choose the option: "))
+            if ask == 0:
+                break
+            elif ask == 1:
+                print(" Books \n")
+                for x in hey.books:
+                    if isinstance(x, Books):
+                        print(x.get_information())
+            elif ask == 2:
+                print(" AudioBooks \n")
+                for x in hey.books:
+                    if isinstance(x, AudioBook):
+                        print(x.get_information())
+            elif ask == 3:
+                print(" VideoBooks \n")
+                for x in hey.books:
+                    if isinstance(x, VideoBook):
+                        print(x.get_information())
+            elif ask == 4:
+                print(" Magazines \n")
+                for x in hey.books:
+                    if isinstance(x, Magazine):
+                        print(x.get_information())
+            else:
+                print("Enter valid number")
+        elif chack == 2:
+            print("""0 - exit
+1 - add Books
+2 - add AudioBooks
+3 - add VideoBooks
+4 - add Magazine
+5 - delete""")
+            ask2 = int(input("Choose the option: "))
 
-class Library(ABC):
-    number = 0
+            if ask2 == 2:
+                print("Adding books")
+                title = input("Enter the title: ")
+                page_count = input("Enter the pages: ")
+                location = input("Enter the location")
+                row = input("Enter the row: ")
+                quantity = input("Enter the quantity: ")
+                info[1].append(title)
+                info[1].append(page_count)
+                info[1].append(location)
+                info[1].append(row)
+                info[1].append(quantity)
+            print(info)
+            if ask2 == 3:
+                title = input("Enter the title: ")
+                page_count = input("Enter the pages: ")
+                location = input("Enter the location")
+                time = input("Enter the time: ")
+                info[4].append(title)
+                info[4].append(page_count)
+                info[4].append(location)
+                info[4].append(time)
+            if ask2 == 4:
+                title = input("Enter the title: ")
+                page_count = input("Enter the pages: ")
+                location = input("Enter the location")
+                topic = input("Enter the topic: ")
+                info[6].append(title)
+                info[6].append(page_count)
+                info[6].append(location)
+                info[6].append(topic)
+            if ask2 == 5:
+                uninstall = input("choose item for deleting:")
+                if uninstall in info:
+                     del info[0][uninstall]
+                     print(f"{uninstall} has deleted")
+                else:
+                    print(f"{uninstall} is not exist")
 
-    def __init__(self, title, page_count, location):
-        self.title = title
-        self.page_count = page_count
-        self.location = location
-        self.number += 1
-
-    @abstractmethod
-    def get_information(self):
-        pass
-
-    @classmethod
-    def count_of_books(cls):
-        return cls.number
-
-
-class Books(Library):
-    def __init__(self, title, page_count, location, row, quantity):
-        super().__init__(title, int(page_count), location)
-        self.quantity = quantity
-        self.row = row
-
-    def get_information(self):
-        return f"""title ({self.title.title()}),
-pages ({self.page_count}),
-location ({self.location}th floor),
-row ({self.row}th),
-quantity ({self.quantity}).
-"""
-
-
-class AudioBook(Library):
-    def __init__(self, title, page_count, location, time):
-        super().__init__(title, int(page_count), location)
-        self.time = time
-
-    def get_information(self):
-        return f"""title ({self.title.title()}),
-pages ({self.page_count}),
-location ({self.location}),
-time ({self.time}hour).
-"""
-
-
-class VideoBook(Library):
-    def __init__(self, title, page_count, location, time, quality):
-        super().__init__(title, int(page_count), location)
-        self.quality = quality
-        self.time = time
-
-    def get_information(self):
-        return f"""title {self.title.title()}
-pages ({self.page_count}),
-location ({self.location}),
-time ({self.time}),
-quality ({self.quality}p).
-"""
-
-
-class Magazine(Library):
-    def __init__(self, title, page_count, location, topic):
-        super().__init__(title, int(page_count), location)
-        self.topic = topic
-
-    def get_information(self):
-        return f"""title ({self.title.title()}),
-pages ({self.page_count}),
-location ({self.location}th floor),
-topic ({self.topic})."""
-
-
-new = Books("shadow", 110, 4, 3, 30)
-new2 = AudioBook("shadow2", 100, "local.com", 3)
-new3 = VideoBook("shadow3", 43, "local.com", 3, 750)
-new4 = Magazine("shadow4", 50, "NewYork 30-store", "cars")
-print(new.get_information())
-print(new2.get_information())
-print(new3.get_information())
-print(new4.get_information())
+get_start()
