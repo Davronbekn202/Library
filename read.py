@@ -79,9 +79,6 @@ class Catalog:
         self.rows = rows
         self.books = []
 
-    def add_books(self, object):
-        if isinstance(object, Library):
-            self.books.append(object)
 
     def get_books(self):
         if not self.books:
@@ -90,3 +87,5 @@ class Catalog:
 
         for date in self.books:
             print(date)
+
+
